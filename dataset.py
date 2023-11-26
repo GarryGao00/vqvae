@@ -7,8 +7,6 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.data.distributed import DistributedSampler
 from torchvision import transforms
 
-# Set this tp `True` and run this script to convert dataset to LMDB format
-TO_LMDB = False
 
 def download_mnist():
     mnist = torchvision.datasets.MNIST(root='./data/mnist', download=True)
@@ -17,10 +15,6 @@ def download_mnist():
     img, label = mnist[id]
     print(img)
     print(label)
-
-    # On computer with monitor
-    # img.show()
-
     img.save('work_dirs/tmp_mnist.jpg')
     tensor = transforms.ToTensor()(img)
     print(tensor.shape)
@@ -46,6 +40,24 @@ class MNISTImageDataset(Dataset):
         return pipeline(img)
 
 
+class CIFAR10ImageDataset(Dataset):
+    def __init__(self, img_shape=(32, 32)):
+        super().__init__()
+        self.img_shape = img_shape
+        self.cifar10 = torchvision.datasets.CIFAR10(root='./data/cifar10', train=True, download=True, transform=None)
+
+    def __len__(self):
+        return len(self.cifar10)
+
+    def __getitem__(self, index: int):
+        img, _ = self.cifar10[index]
+        pipeline = transforms.Compose([
+            transforms.Resize(self.img_shape),
+            transforms.ToTensor()
+        ])
+        return pipeline(img)
+
+
 def get_dataloader(type,
                    batch_size,
                    img_shape=None,
@@ -58,6 +70,12 @@ def get_dataloader(type,
             dataset = MNISTImageDataset(img_shape)
         else:
             dataset = MNISTImageDataset()
+    elif type == 'CIFAR10':
+        if img_shape is not None:
+            dataset = CIFAR10ImageDataset(img_shape)
+        else:
+            dataset = CIFAR10ImageDataset()
+
     if dist_train:
         sampler = DistributedSampler(dataset)
         dataloader = DataLoader(dataset,
