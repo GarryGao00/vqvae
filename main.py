@@ -16,7 +16,6 @@ from pixelcnn_model import PixelCNNWithEmbedding
 
 USE_LMDB = False
 
-
 def train_vqvae(model: VQVAE,
                 img_shape=None,
                 device='cuda',
