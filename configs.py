@@ -32,6 +32,40 @@ cifar10_cfg1 = dict(dataset_type='CIFAR10',
                     vqvae_path='vqvae/model_cifar10.pth',
                     gen_model_path='vqvae/gen_model_cifar10.pth')
 
+cifar10_cfg2 = dict(dataset_type='CIFAR10',
+                    img_shape=(3, 32, 32),  
+                    dim=32,  
+                    n_embedding=32,
+                    batch_size=128,
+                    n_epochs=30,
+                    l_w_embedding=1,
+                    l_w_commitment=0.25,
+                    lr=2e-4,
+                    n_epochs_2=100,
+                    batch_size_2=128,
+                    pixelcnn_n_blocks=10,
+                    pixelcnn_dim=128,
+                    pixelcnn_linear_dim=32,
+                    vqvae_path='vqvae/model_cifar10_2.pth',
+                    gen_model_path='vqvae/gen_model_cifar10_2.pth')
+
+cifar10_cfg3 = dict(dataset_type='CIFAR10',
+                    img_shape=(3, 32, 32),  
+                    dim=128,  
+                    n_embedding=128,
+                    batch_size=128,
+                    n_epochs=30,
+                    l_w_embedding=1,
+                    l_w_commitment=0.25,
+                    lr=2e-4,
+                    n_epochs_2=100,
+                    batch_size_2=128,
+                    pixelcnn_n_blocks=20,
+                    pixelcnn_dim=512,
+                    pixelcnn_linear_dim=128,
+                    vqvae_path='vqvae/model_cifar10_3.pth',
+                    gen_model_path='vqvae/gen_model_cifar10_3.pth')
+
 cfgs = [mnist_cfg1, cifar10_cfg1]
 
 def get_cfg(id: int):

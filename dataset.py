@@ -21,6 +21,21 @@ def download_mnist():
     print(tensor.max())
     print(tensor.min())
 
+def download_cifar10():
+    cifar10 = torchvision.datasets.CIFAR10(root='./data/cifar10', download=True)
+    print('Length of CIFAR-10:', len(cifar10))
+
+    id = 4
+    img, label = cifar10[id]
+
+    print(img)
+    print('Label:', label)
+    img.save('work_dirs/tmp_cifar10.jpg')
+    tensor = transforms.ToTensor()(img)
+    print('Tensor shape:', tensor.shape)
+    print('Max value in tensor:', tensor.max())
+    print('Min value in tensor:', tensor.min())
+
 
 class MNISTImageDataset(Dataset):
 
@@ -93,4 +108,5 @@ def get_dataloader(type,
 
 if __name__ == '__main__':
     os.makedirs('work_dirs', exist_ok=True)
-    download_mnist()
+    # download_mnist()
+    # download_cifar10()
