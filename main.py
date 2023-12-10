@@ -173,6 +173,8 @@ if __name__ == '__main__':
                                       cfg['pixelcnn_dim'],
                                       cfg['pixelcnn_linear_dim'], True,
                                       cfg['n_embedding'])
+
+    print(f"-c = {args.c}; cfg = {cfg['dataset_type']}; device = {device}")
     # 1. Train VQVAE
     train_vqvae(vqvae,
                 img_shape=(img_shape[1], img_shape[2]),

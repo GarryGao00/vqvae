@@ -66,7 +66,7 @@ cifar10_cfg3 = dict(dataset_type='CIFAR10',
                     vqvae_path='vqvae/model_cifar10_3.pth',
                     gen_model_path='vqvae/gen_model_cifar10_3.pth')
 
-cfgs = [mnist_cfg1, cifar10_cfg1]
+cfgs = [mnist_cfg1, cifar10_cfg1, cifar10_cfg2, cifar10_cfg3]
 
 def get_cfg(id: int):
     return cfgs[id]
